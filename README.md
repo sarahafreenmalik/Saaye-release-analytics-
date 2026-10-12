@@ -77,7 +77,7 @@ data/                        query results as CSV
 images/                      dashboard screenshots
 ```
 
-To run: open either SQL file in MySQL Workbench and execute it top to bottom.
+   To run: in MySQL Workbench, run spotify_campaign.sql first (it creates the database), then instagram_insights.sql.
 
 ---
 
