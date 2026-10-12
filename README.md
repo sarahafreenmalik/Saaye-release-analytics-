@@ -71,13 +71,12 @@ One release, five reels: the patterns are directional, not proven. Three stories
 ## Repo contents
 
 ```
-sql/instagram_insights.sql   schema, data and analysis queries for Instagram
-sql/spotify_campaign.sql     schema, data and analysis queries for Spotify + pitching
-data/                        query results as CSV
-images/                      dashboard screenshots
+instagram_insights.sql   schema, data and analysis queries for Instagram
+spotify_campaign.sql     schema, data and analysis queries for Spotify + pitching
+*.csv                    query results behind each dashboard chart
 ```
 
-   To run: in MySQL Workbench, run spotify_campaign.sql first (it creates the database), then instagram_insights.sql.
+To run: in MySQL Workbench, run spotify_campaign.sql first (it creates the database), then instagram_insights.sql.
 
 ---
 
