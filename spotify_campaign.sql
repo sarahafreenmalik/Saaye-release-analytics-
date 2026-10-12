@@ -61,7 +61,8 @@ INSERT INTO spotify_daily VALUES
 ('2026-10-04', 194,   52, NULL),
 ('2026-10-05', NULL,  76, NULL),
 ('2026-10-06', NULL,  86, NULL),
-('2026-10-08', 308,   97, NULL);
+('2026-10-08', 308,   97, NULL),
+('2026-10-12', NULL, 146, NULL);
 
 INSERT INTO pitches (pitch_date, target_name, target_type, channel, outcome) VALUES
 ('2026-10-01', 'Horizon Harmonics', 'playlist', 'SubmitHub', 'pending'),
