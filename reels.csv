@@ -1,0 +1,6 @@
+reel_id,reel,post_date,length_sec,views,viewers,avg_watch_sec,share_watched,skip_rate,nonfollower_share,new_people,likes,comments,shares,saves,profile_visits,follows,profile_visit_rate,algorithmic_share,stories_share
+1,CityFM89 radio feature,2026-09-19,60,1385,878,8,0.133,0.765,0.533,468,30,16,2,2,12,0,0.0137,0.104,0.128
+2,Lyric: I'm so delusional,2026-09-16,19,9732,6918,6,0.316,0.694,0.672,4649,200,129,56,9,136,2,0.0197,0.149,0.377
+3,Lyric: tere saaye mein hoon,2026-09-21,8,8877,6619,2,0.25,0.822,0.437,2893,91,12,17,4,64,5,0.0097,0.091,0.622
+4,BTS: Studio Session 1,2026-09-15,34,2122,1390,14,0.412,0.582,0.585,813,27,1,5,2,43,1,0.0309,0.202,0.097
+5,Performance: singing on camera,2026-09-06,53,8098,5711,11,0.208,0.459,0.757,4323,138,38,333,6,298,4,0.0522,0.335,0.044
