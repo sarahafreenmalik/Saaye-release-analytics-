@@ -144,6 +144,34 @@ UPDATE ig_stories SET men_pct = 79.8 WHERE story_id = 40;
 UPDATE ig_stories SET men_pct = 76.8 WHERE story_id = 41;
 UPDATE ig_stories SET men_pct = 76.5 WHERE story_id = 45;
 
+-- Stories added 12 Oct from later screenshots (post dates known)
+INSERT INTO ig_stories
+ (story_id, story_label, content_type, made_by, reshared_from, post_date,
+  views, viewers, interactions, profile_activity, likes, replies, shares, sticker_taps,
+  nonfollower_view_pct, taps_forward, exits, next_story, taps_back)
+VALUES
+(42,'Reshare: "your current on repeat song" Spotify player','reshare','reshare',NULL,'2026-10-05',
+ 259,207,14,6,12,2,0,NULL,10.8,131,57,32,1),
+(43,'Reshare: "Go listen to this song by a friend of mine" (SoundCloud)','reshare','reshare',NULL,'2026-10-07',
+ 170,150,6,1,NULL,NULL,NULL,NULL,11.8,NULL,NULL,NULL,NULL),
+(44,'Saaye Spotify card on pink, tags @sarahafreenmalik','stream_cta','own',NULL,'2026-10-09',
+ 394,328,8,3,NULL,NULL,NULL,NULL,5.8,NULL,NULL,NULL,NULL);
+
+-- Sabah's selfie-video reshare: post date and viewers confirmed
+UPDATE ig_stories SET post_date = '2026-10-03', viewers = 286 WHERE story_id = 36;
+
+-- Milestone story (completes the highlight) + like/send/reply detail for 43 and 44
+INSERT INTO ig_stories
+ (story_id, story_label, content_type, made_by, reshared_from, post_date,
+  views, viewers, interactions, profile_activity, likes, replies, shares, sticker_taps,
+  nonfollower_view_pct, taps_forward, exits, next_story, taps_back)
+VALUES
+(46,'Milestone: In 7 days, from 9 to 110 monthly listeners (completely organic)','milestone','own',NULL,'2026-10-09',
+ 421,NULL,29,4,24,4,1,NULL,NULL,NULL,NULL,NULL,NULL);
+
+UPDATE ig_stories SET likes = 6, shares = 0, replies = 0 WHERE story_id = 43;
+UPDATE ig_stories SET likes = 7, shares = 1, replies = 0 WHERE story_id = 44;
+
 -- Q6. Gender mix by story
 SELECT story_id, story_label, views, men_pct, 100 - men_pct AS women_pct
 FROM ig_stories
@@ -383,3 +411,59 @@ SELECT reel_label, viewers, nonfollower_view_pct,
        follows
 FROM ig_reels
 ORDER BY est_new_people_reached DESC;
+
+-- ---------------------------------------------------------------------
+-- Account-level Instagram context (Professional dashboard)
+-- ---------------------------------------------------------------------
+CREATE TABLE ig_account_summary (
+    period_label         VARCHAR(30),
+    period_start         DATE,
+    period_end           DATE,
+    views                INT,
+    views_change_pct     DECIMAL(5,1),   -- vs the previous period of the same length
+    nonfollower_view_pct DECIMAL(4,1),
+    followers            INT,
+    net_followers        INT,
+    is_rounded           BOOLEAN         -- monthly recap shows rounded figures (98K, 17K)
+);
+INSERT INTO ig_account_summary VALUES
+('September recap','2026-09-01','2026-09-30',98000,NULL,54.0,17000,NULL,TRUE),
+('14 days after release','2026-09-28','2026-10-11',28233,-42.3,NULL,17393,-27,FALSE);
+
+-- A2. Did the Instagram reel audience become the Spotify audience?
+-- Instagram reel ages weighted by each reel's viewers vs Spotify listener ages
+WITH ig AS (
+    SELECT CASE WHEN a.age_band = '13-17' THEN '<18' ELSE a.age_band END AS age_band,
+           SUM(a.pct * r.viewers) / SUM(r.viewers) AS ig_reel_pct
+    FROM ig_reel_age a
+    JOIN ig_reels r ON r.reel_id = a.reel_id
+    GROUP BY 1
+)
+SELECT ig.age_band,
+       ROUND(ig.ig_reel_pct, 1)            AS instagram_reel_viewers_pct,
+       s.pct                               AS spotify_listeners_pct,
+       ROUND(s.pct - ig.ig_reel_pct, 1)    AS difference_pts
+FROM ig
+JOIN spotify_audience_age s ON s.age_band = ig.age_band
+ORDER BY FIELD(ig.age_band, '<18','18-24','25-34','35-44','45-54','55-64','65+');
+
+-- A4. Gender: everyday stories vs the three release-moment stories vs Spotify listeners
+SELECT 'Everyday stories' AS audience,
+       ROUND(100 - SUM(men_pct * views) / SUM(views), 1) AS women_pct
+FROM ig_stories
+WHERE men_pct IS NOT NULL AND story_id NOT IN (20, 25, 31)
+UNION ALL
+SELECT 'Pre-save, countdown and release-day stories',
+       ROUND(100 - SUM(men_pct * views) / SUM(views), 1)
+FROM ig_stories
+WHERE story_id IN (20, 25, 31)
+UNION ALL
+SELECT 'Spotify listeners (last 28 days)', pct
+FROM spotify_audience_gender
+WHERE gender = 'Female';
+
+-- D2. Data completeness: stories without a post date
+SELECT COUNT(*)                                  AS stories,
+       SUM(post_date IS NULL)                    AS missing_date,
+       ROUND(SUM(post_date IS NULL) / COUNT(*) * 100, 0) AS pct_missing
+FROM ig_stories;
