@@ -7,7 +7,10 @@ I released my single **"Saaye"** independently on 2 October 2026 and ran the who
 
 **[View the interactive dashboard](https://claude.ai/artifact/SnEMVQHP4WQ3UXrZDcLpE3)**
 
-<!-- Add dashboard screenshot here: ![Saaye dashboard](dashboard.png) -->
+<img width="1281" height="704" alt="dashboard" src="https://github.com/user-attachments/assets/f3214b13-1191-4f80-b44a-0997d5113dc0" /><img width="1291" height="704" alt="reelsandstories" src="https://github.com/user-attachments/assets/1cdfb6f2-ff89-49f5-8115-aeaa51c957f0" />
+<img width="1243" height="704" alt="reelcomparison" src="https://github.com/user-attachments/assets/fcc5ae82-0ab2-404a-a1de-58cdc602fc8c" />
+
+
 
 ---
 
