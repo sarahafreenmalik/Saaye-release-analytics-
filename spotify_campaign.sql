@@ -195,7 +195,7 @@ ORDER BY pct DESC;
 
 -- Spotify for Artists home, 12 Oct: last-7-day totals and top songs
 CREATE TABLE spotify_release_week (
-    snapshot_date DATE, window_days INT, release VARCHAR(40),
+        snapshot_date DATE, window_days INT, `release` VARCHAR(40),
     listeners INT, streams INT, followers INT
 );
 INSERT INTO spotify_release_week VALUES ('2026-10-12',7,'Saaye',83,206,144);
